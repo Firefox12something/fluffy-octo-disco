@@ -22,9 +22,12 @@ from list_with_laws import views as Laws_views
 from library_of_nko import views as Publication
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/Laws/',Laws_views.LawsListAPIView.as_view()),
-    path('api/v1/news/',news_views.NewsListAPIView.as_view()),
-    path('api/v1/Publication_ICNL',Publication.Publication_of_ICNL_APIView),
-    path ('api/v1/Rest_Publication',Publication.The_rest_of_publication_APIView),
+    path('api/v1/login',news_views.login),
+    path('api/v1/registration',news_views.registration),
+    path('api/v1/Laws/', Laws_views.LawsListAPIView.as_view()),
+    path('api/v1/news/', news_views.NewsListAPIView.as_view()),
+    path('api/v1/news/<int:id>', news_views.News_item_View),
+    path('api/v1/Publication_ICNL', Publication.Publication_of_ICNL_APIView),
+    path ('api/v1/Rest_Publication', Publication.The_rest_of_publication_APIView),
    ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+#5ead8fb60a83bebb281d3f572ad48ac01c43eaae   token

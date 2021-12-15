@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+from django.contrib.auth.models import User
 import The_view_of_news.admin
 from The_view_of_news.models import News, NewsImage,FavoriteNews
 class Newslistserializer(serializers.ModelSerializer):
@@ -8,12 +8,12 @@ class Newslistserializer(serializers.ModelSerializer):
     class Meta:
         model = News
         fields = 'id is_favourite title short_description publication_date image'.split()
-
     def get_is_favourite(self,news):
         user = self.context['user']
-        if user.is_anonymous:
-            return  False
-        return bool(FavoriteNews.objects.filter(news=news,user=user).count()>0)
+        favourites = FavoriteNews.objects.filter(user=user, news=news)
+        if favourites:
+            return True
+        return False
 class NewsItemSerializer(serializers.ModelSerializer):
   is_favorite = serializers.SerializerMethodField()
   images = serializers.SerializerMethodField()
